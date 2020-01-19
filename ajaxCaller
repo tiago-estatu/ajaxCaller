@@ -1,0 +1,38 @@
+/* CONFIGURAÇÕES PARA A REALIZAR A REQUISIÇÃO 
+    ---------------------------------------------------------------------------------*/
+    //URL BASE PARA A CHAMADA
+    const urlCalled = "http://www.mocky.io/v2/5dba68fb3000007400028eb5";
+
+    //HEADER
+    const h = new Headers();
+    h.append('Accept','application/json');
+
+    // CONTÉM TODOS PARAMETROS PARA O REQUEST
+    const requestConfigurado = new Request(urlCalled, {method: 'GET',headers: h, mode: 'cors', cache: 'no-cache'});
+    
+    const ajaxCaller = async (url) => {
+        //URL CHAMADA
+        const api_call = await fetch(url);
+        
+        //Tramento de erro
+        if(!api_call.ok){
+            throw new Error(api_call.status);
+            
+        }else{
+            // Se o status.ok
+            // Retornamos os dados recebidos
+            const data = await api_call.json();
+            
+            return {data};
+        }
+    }
+
+
+     //Ajax call
+    ajaxCaller(requestConfigurado).then((response) => {
+    // FUNÇÃO QUE MANIPULA O RESULTADO DA response
+        console.log(response);
+    })
+    .catch(err => {
+        console.log(err);
+    })
